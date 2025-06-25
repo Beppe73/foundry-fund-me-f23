@@ -24,9 +24,10 @@ jobs:
         run: |
           forge --version
 
-      - name: Update submodules
+      - name: Update submodules and verify
         run: |
           git submodule update --init --recursive
+          ls -la lib/
 
       - name: Run Forge fmt
         run: |
