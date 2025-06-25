@@ -1,66 +1,16 @@
-## Foundry
+# Foundry Fund Me
+Un progetto di studio per creare un contratto di crowdfunding con Foundry.
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+## Requisiti
+- Foundry
+- Node.js
+- File `.env` con chiavi API (es. SEPOLIA_RPC_URL, ETHERSCAN_API_KEY)
 
-Foundry consists of:
+## Installazione
+1. Clona il repository: `git clone https://github.com/Beppe73/foundry-fund-me-f23.git`
+2. Installa le dipendenze: `forge install`
+3. Compila: `forge build`
+4. Distribuisci: `make deploy` (assicurati di configurare `.env`)
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
-
-## Documentation
-
-https://book.getfoundry.sh/
-
-## Usage
-
-### Build
-
-```shell
-$ forge build
-```
-
-### Test
-
-```shell
-$ forge test
-```
-
-### Format
-
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+## Stato
+- Workflow CI: In corso di configurazione per test automatici.
