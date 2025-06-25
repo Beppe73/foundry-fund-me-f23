@@ -1,0 +1,25 @@
+# Compiler files
+cache/
+out/
+
+# Ignores development broadcast logs
+
+broadcast/
+!/broadcast/*.sol
+/broadcast/*/31337/
+/broadcast/**/dry-run/
+
+
+# Docs
+docs/
+
+# Dotenv file
+.env
+.env.*
+
+#vecchi file
+z_old_files/
+
+
+.keystore
+/lib
