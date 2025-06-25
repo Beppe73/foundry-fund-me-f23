@@ -21,16 +21,11 @@ contract FundMe {
     constructor(address priceFeedAddress) {
         /* REFACTORING:  */
         i_owner = msg.sender;
-        s_priceFeed = AggregatorV3Interface(
-            priceFeedAddress
-        ); /* REFACTORING:  */
+        s_priceFeed = AggregatorV3Interface(priceFeedAddress); /* REFACTORING:  */
     }
 
     function fund() public payable {
-        require(
-            msg.value.getConversionRate(s_priceFeed) >= MINIMUM_USD,
-            "You need to spend more ETH!"
-        ); /* REFACTORING:  */
+        require(msg.value.getConversionRate(s_priceFeed) >= MINIMUM_USD, "You need to spend more ETH!"); /* REFACTORING:  */
         // require(PriceConverter.getConversionRate(msg.value) >= MINIMUM_USD, "You need to spend more ETH!");
         s_addressToAmountFunded[msg.sender] += msg.value;
         s_funders.push(msg.sender);
@@ -38,7 +33,8 @@ contract FundMe {
 
     function getVersion() public view returns (uint256) {
         /* AggregatorV3Interface priceFeed = AggregatorV3Interface(0x694AA1769357215DE4FAC081bf1f309aDC325306);
-        return priceFeed.version(); */ /* pre REFACTORING:  */
+        return priceFeed.version(); */
+        /* pre REFACTORING:  */
         return s_priceFeed.version(); /*  REFACTORING:  */
     }
 
@@ -49,11 +45,7 @@ contract FundMe {
     }
 
     function withdraw() public onlyOwner {
-        for (
-            uint256 funderIndex = 0;
-            funderIndex < s_funders.length;
-            funderIndex++
-        ) {
+        for (uint256 funderIndex = 0; funderIndex < s_funders.length; funderIndex++) {
             address funder = s_funders[funderIndex];
             s_addressToAmountFunded[funder] = 0;
         }
@@ -66,25 +58,20 @@ contract FundMe {
         // require(sendSuccess, "Send failed");
 
         // call
-        (bool callSuccess, ) = payable(msg.sender).call{
-            value: address(this).balance
-        }("");
+        (bool callSuccess,) = payable(msg.sender).call{value: address(this).balance}("");
         require(callSuccess, "Call failed");
     }
 
-    function cheaperWithdraw() public onlyOwner{
+    function cheaperWithdraw() public onlyOwner {
         uint256 fundersLength = s_funders.length;
-        for (uint256 funderIndex = 0; funderIndex < fundersLength; funderIndex++){
+        for (uint256 funderIndex = 0; funderIndex < fundersLength; funderIndex++) {
             address funder = s_funders[funderIndex];
             s_addressToAmountFunded[funder] = 0;
-        } 
-        s_funders = new address [](0);
-        (bool callSuccess, ) = payable(msg.sender).call{value:address(this).balance}("");
-        require(callSuccess, "call failed");
-
-
         }
-    
+        s_funders = new address[](0);
+        (bool callSuccess,) = payable(msg.sender).call{value: address(this).balance}("");
+        require(callSuccess, "call failed");
+    }
 
     fallback() external payable {
         fund();
@@ -94,22 +81,19 @@ contract FundMe {
         fund();
     }
 
-    function getAddressToAmountFounded( address fundingAddress) public view returns (uint256) {
+    function getAddressToAmountFounded(address fundingAddress) public view returns (uint256) {
         return s_addressToAmountFunded[fundingAddress];
     }
-    function getFunder(uint256 index) public view returns(address){
+
+    function getFunder(uint256 index) public view returns (address) {
         return s_funders[index];
     }
 
-    function getOwner() public view returns (address){
+    function getOwner() public view returns (address) {
         return i_owner;
     }
 
     function getPriceFeed() public view returns (address) {
-    return address(s_priceFeed);
-
-   
-
-    
-}
+        return address(s_priceFeed);
+    }
 }
